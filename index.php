@@ -12,7 +12,7 @@
     <body>
         <h1>Register</h1>
         <form method="post" action="index.php" enctype="multipart/form-data">
-            <div class="row">
+            <div class="form-group">
                 <div class="col-md-2">
                     Nama
                 </div>
@@ -20,7 +20,7 @@
                     <input name="nama" type="text" class="form-control form-control-sm">
                 </div>
             </div>
-            <div class="row">
+            <div class="form-group">
                 <div class="col-md-2">
                     Alamat
                 </div>
@@ -28,7 +28,7 @@
                     <input name="alamat" type="text" class="form-control form-control-sm">
                 </div>
             </div>
-            <div class="row">
+            <div class="form-group">
                 <div class="col-md-2">
                     &nbsp;
                 </div>
@@ -61,15 +61,17 @@
             // SAVE
             if (isset($_POST['simpan'])) {
                 try {
+                    $id = time();
                     $nama = $_POST['nama'];
                     $alamat = $_POST['alamat'];
 
                     // Insert
-                    $sql_insert = "INSERT INTO pengguna (nama, alamat) VALUES (?,?)";
+                    $sql_insert = "INSERT INTO pengguna (id, nama, alamat) VALUES (?,?,?)";
 
                     $stmt = $conn->prepare($sql_insert);
-                    $stmt->bindValue(1, $nama);
-                    $stmt->bindValue(2, $alamat);
+                    $stmt->bindValue(1, $id);
+                    $stmt->bindValue(2, $nama);
+                    $stmt->bindValue(3, $alamat);
 
                     $stmt->execute();
                 } catch (Exception $e) {
